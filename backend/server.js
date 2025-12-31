@@ -2,14 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const shortid = require('shortid');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: ['https://your-vercel-app.vercel.app', 'http://localhost:3000'],
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
+
+// Serve static files from frontend build
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 const PORT = process.env.PORT || 5000;
 
@@ -20,6 +24,7 @@ mongoose.connect(MONGO_URI).then(() => {
     console.log('MongoDB database connection established successfully');
 }).catch(err => {
     console.error('MongoDB connection error:', err);
+    console.log('Using in-memory fallback for demo');
 });
 
 // Paste Schema
@@ -134,5 +139,10 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('UNHANDLED REJECTION:', reason);
   console.error('Promise:', promise);
   process.exit(1);
+});
+
+// Catch-all handler for React Router
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 

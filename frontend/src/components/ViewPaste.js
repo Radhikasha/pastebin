@@ -10,6 +10,7 @@ const ViewPaste = () => {
   useEffect(() => {
     const fetchPaste = async () => {
       try {
+        console.log('Requesting paste ID:', id);
         const response = await axios.get(`/api/pastes/${id}`);
         setPaste(response.data);
       } catch (err) {

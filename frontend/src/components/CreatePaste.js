@@ -16,6 +16,8 @@ const CreatePaste = () => {
         viewsLimit,
       });
       const url = `${window.location.origin}/paste/${response.data.id}`;
+      console.log('Generated paste ID:', response.data.id);
+      console.log('Generated URL:', url);
       setPasteUrl(url);
     } catch (error) {
       console.error('Error creating paste', error);

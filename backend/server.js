@@ -31,7 +31,7 @@ mongoose.connect(MONGO_URI).then(() => {
 const PasteSchema = new mongoose.Schema({
   _id: {
     type: String,
-    default: shortid.generate,
+    default: () => Math.random().toString(36).substr(2, 9),
   },
   content: String,
   createdAt: {

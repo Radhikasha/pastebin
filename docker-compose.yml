@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  pastebin:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb+srv://radhikasharma790670:Radhika%402005@cluster0.j7sicee.mongodb.net/?appName=Cluster0
+    restart: unless-stopped

@@ -1,6 +1,6 @@
+import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 const ViewPaste = () => {
   const { id } = useParams();
@@ -10,8 +10,12 @@ const ViewPaste = () => {
   useEffect(() => {
     const fetchPaste = async () => {
       try {
-        console.log('Requesting paste ID:', id);
-        const response = await axios.get(`/api/pastes/${id}`);
+        // Decode the ID to handle special characters
+        const decodedId = decodeURIComponent(id);
+        console.log('Original ID from URL:', id);
+        console.log('Decoded ID:', decodedId);
+        
+        const response = await axios.get(`/api/pastes/${decodedId}`);
         setPaste(response.data);
       } catch (err) {
         setError('Paste not found or has expired.');

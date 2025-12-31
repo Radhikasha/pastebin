@@ -141,3 +141,8 @@ process.on('unhandledRejection', (reason, promise) => {
   process.exit(1);
 });
 
+// Catch-all handler for React Router - serve frontend for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
+

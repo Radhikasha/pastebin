@@ -141,9 +141,3 @@ process.on('unhandledRejection', (reason, promise) => {
   process.exit(1);
 });
 
-// Catch-all handler for React Router
-app.get('*', (req, res) => {
-  const indexPath = path.join(__dirname, '../frontend/build/index.html');
-  res.sendFile(indexPath);
-});
-
